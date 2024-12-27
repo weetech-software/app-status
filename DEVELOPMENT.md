@@ -13,4 +13,8 @@ $ git push -u origin main
 $ git pull --no-commit upstream master
 # check everything okay, if no conflict, merge
 $ git merge --continue
+# or
+git fetch upstream
+git checkout main
+git merge upstream/master
 ```
