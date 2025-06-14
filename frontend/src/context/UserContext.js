@@ -17,3 +17,19 @@ function userReducer(state, action) {
    }
 }
 
+function UserProvider({ children }) {
+   var [state, dispatch] = React.useReducer(userReducer, {
+      isAuthenticated:
+         !!localStorage.getItem("id_token") &&
+         !!localStorage.getItem("bearerToken"),
+   });
+
+   return (
+      <UserStateContext.Provider value={state}>
+         <UserDispatchContext.Provider value={dispatch}>
+            {children}
+         </UserDispatchContext.Provider>
+      </UserStateContext.Provider>
+   );
+}
+
