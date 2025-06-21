@@ -33,3 +33,69 @@ function UserProvider({ children }) {
    );
 }
 
+function loginUser(
+   dispatch,
+   login,
+   password,
+   navigate,
+   setIsLoading,
+   setError,
+   redirectTo
+) {
+   setError(false);
+   setIsLoading(true);
+
+   if (!!login && !!password) {
+      setTimeout(() => {
+         /*
+         const user = JSON.stringify({
+            email: login,
+            password: password,
+         });
+         */
+         var bodyFormData = new FormData();
+         bodyFormData.append("email", login);
+         bodyFormData.append("password", password);
+
+         /*
+         const config = {
+            headers: {
+               "Content-Type": "application/json",
+            },
+         };
+         */
+         const config = {
+            headers: {
+               "Content-Type": "multipart/form-data",
+            },
+         };
+         //console.log(user)
+
+         axios
+            .post(
+               `${process.env.REACT_APP_API_URL}/login`,
+               bodyFormData,
+               config
+            )
+            .then((res) => {
+               console.log(res.data);
+               localStorage.setItem("id_token", res.data.token);
+               localStorage.setItem("bearerToken", res.data.token);
+               dispatch({ type: "LOGIN_SUCCESS" });
+               setError(null);
+               setIsLoading(false);
+               console.log(res);
+
+               navigate(redirectTo);
+            })
+            .catch((err) => {
+               setError(true);
+               setIsLoading(false);
+            });
+      }, 2000);
+   } else {
+      dispatch({ type: "LOGIN_FAILURE" });
+      setError(true);
+      setIsLoading(false);
+   }
+}
