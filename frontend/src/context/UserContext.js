@@ -99,3 +99,10 @@ function loginUser(
       setIsLoading(false);
    }
 }
+
+function signOut(dispatch, navigate, navigatePath, navigateState) {
+   localStorage.removeItem("id_token");
+   localStorage.removeItem("bearerToken");
+   dispatch({ type: "SIGN_OUT_SUCCESS" });
+   navigate(navigatePath, navigateState);
+}
