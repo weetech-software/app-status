@@ -106,3 +106,12 @@ function signOut(dispatch, navigate, navigatePath, navigateState) {
    dispatch({ type: "SIGN_OUT_SUCCESS" });
    navigate(navigatePath, navigateState);
 }
+
+function useUserDispatch() {
+   var context = React.useContext(UserDispatchContext);
+   if (context === undefined) {
+      throw new Error("useUserDispatch must be used within a UserProvider");
+   }
+   return context;
+}
+
