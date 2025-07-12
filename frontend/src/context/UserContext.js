@@ -115,3 +115,5 @@ function useUserDispatch() {
    return context;
 }
 
+export { UserProvider, useUserDispatch, useUserState, loginUser, signOut };
+
