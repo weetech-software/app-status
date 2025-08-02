@@ -11,5 +11,21 @@ const Contextualizer = {
       return context;
    },
 
+   useContext: (services) => {
+      const context = contexts.get(services);
+      if (context === undefined) {
+         throw new Error(`${ProvidedServices[services]} was not created`);
+      }
+      const service = React.useContext(context);
+
+      if (service === undefined) {
+         throw new Error(
+            `You must use ${ProvidedServices[services]} from within its service`
+         );
+      }
+      return service;
+   },
+
+
 };
 
