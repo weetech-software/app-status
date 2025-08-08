@@ -25,7 +25,8 @@ const Contextualizer = {
       }
       return service;
    },
-
-
+   clear() {
+      contexts.clear();
+   },
 };
 
