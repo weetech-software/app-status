@@ -30,3 +30,5 @@ const Contextualizer = {
    },
 };
 
+export default Contextualizer;
+
