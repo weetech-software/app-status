@@ -115,5 +115,12 @@ function useUserDispatch() {
    return context;
 }
 
-export { UserProvider, useUserDispatch, useUserState, loginUser, signOut };
+function useUserState() {
+   var context = React.useContext(UserStateContext);
+   if (context === undefined) {
+      throw new Error("useUserState must be used within a UserProvider");
+   }
+   return context;
+}
 
+export { UserProvider, useUserDispatch, useUserState, loginUser, signOut };
