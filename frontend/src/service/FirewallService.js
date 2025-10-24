@@ -47,5 +47,44 @@ const FirewallService = ({ children }) => {
             });
          }
       },
+
+      // get    get             /api/firewall/blblablaba
+      async get(id) {
+         const response = await fetch(
+            `${process.env.REACT_APP_API_URL}/api/firewall/${id}/`,
+            {
+               headers: {
+                  "x-access-token": localStorage.getItem("bearerToken"),
+                  "content-type": "application/json",
+               },
+            }
+         );
+         if (response.ok) {
+            const resultJson = await response.json();
+            return new Promise((resolve) => {
+               resolve(resultJson);
+            });
+         } else {
+            await response.json().then((json) => {
+               if (json.message === "Token is expired") {
+                  const navigateState = {
+                     state: { message: "session expired" },
+                  };
+                  return new Promise((_, reject) => reject(navigateState));
+               } else if (json.message === "not authorize to access") {
+                  const navigateState = {
+                     state: { message: "not authorize to access" },
+                  };
+                  return new Promise((_, reject) => reject(navigateState));
+               } else {
+                  const navigateState = {
+                     state: { message: "unauth" },
+                  };
+                  return new Promise((_, reject) => reject(navigateState));
+               }
+            });
+         }
+      },
+
   }
 }
