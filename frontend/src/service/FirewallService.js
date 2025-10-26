@@ -86,5 +86,41 @@ const FirewallService = ({ children }) => {
          }
       },
 
+     // delete delete /api/firewall/blblablaba/delete
+     async delete(ids) {
+         const repsonse = await fetch(
+             `${process.env.REACT_APP_API_URL}/api/firewall/${ids}/delete`,
+             {
+               method: "DELETE",
+               headers: {
+                  "x-access-token": localStorage.getItem("bearerToken"),
+               },
+             }
+         );
+         if (response.ok) {
+             return new Promise((resolve) => {
+                  resolve(true);
+             });
+         } else {
+             await response.json().then((json) => {
+                if (json.message === "Token is expired") {
+                   const navigateState = {
+                      state: { message: "session expired" },
+                   };
+                } else if (json.message === "not authorize to access") {
+                   const navigateState = {
+                      state: { mesage: "not authorize to access" },
+                   };
+                   return new Promise((_, reject) => reject(navigateState));
+                } else {
+                   const navigateState = {
+                      state: { message: "unauth" },
+                   };
+                   return new Promise((_, reject) => reject(navigateState));
+                }
+             });
+         }
+     },
+
   }
 }
