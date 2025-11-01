@@ -122,5 +122,44 @@ const FirewallService = ({ children }) => {
          }
      },
 
+     // post create  /api/firewall/
+     async create(data) {
+         const response = await fetch(
+              `${process.env.REACT_APP_API_URL}/api/firewall`,
+              {
+                 method: "POST",
+                 headers: {
+                    "x-access-token": localStorage.getItem("bearerToken"),
+                    "content-type": "application/json",
+                 },
+                 body: JSON.stringify(data),
+              }
+         );
+         if (response.ok) {
+             return new Promise((resolve) => {
+                resolve(true);
+             })
+         } else {
+             await response.json().then((json) => {
+                if (json.message === "Token is expired") {
+                    const navigateState = {
+                       state: { message: "session expired" },
+                    };
+                    return new Promise((_, reject) => reject(navigateState));
+                } else if (json.message === "not authorized to access") {
+                    const navigateState = {
+                       state: { message: "not authorize to access" },
+                    };
+                    return new Promise((_, reject) => reject(navigateState));
+                } else {
+                    const navigateState = {
+                       state: { message: "unauth" },
+                    };
+                    return new Promise((_, reject) => reject(navigateState));
+                }
+             });
+         }
+     },
+
   }
 }
