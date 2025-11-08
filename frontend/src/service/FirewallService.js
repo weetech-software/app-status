@@ -161,5 +161,45 @@ const FirewallService = ({ children }) => {
          }
      },
 
+     // post update /api/firewall/blablabla/update
+     async update(id, fwContent) {
+        const data = { filename: id, content: fwContent };
+        const response = await fetch(
+            `${process.env.REACT_APP_API_URL}/api/firewall/${id}/update`,
+            {
+               method: "PUT",
+               headers: {
+                  "x-access-token": localStorage.getItem("bearerToken"),
+                  "content-type": "application/json",
+               },
+               body: JSON.stringify(data),
+            }
+         );
+         if (response.ok) {
+            return new Promise((resolve) => {
+               resolve(true);
+            });
+         } else {
+            await response.json().then((json) => {
+               if (json.message === "Token is expired") {
+                   const navigateState = {
+                      state: { message: "session expired" },
+                   };
+                   return new Promise((_, reject) => reject(navigateState));
+               } else if (json.message === "not authorize to access") {
+                   const navigateState = {
+                      state: { message: "not authorize to access" },
+                   };
+                   return new Promise((_, reject) => reject(navigateState));
+               } else {
+                   const navigateState = {
+                      state: { message: "unauth" },
+                   };
+                   return new Promise((_, reject) => reject(navigateState));
+               }
+            });
+         }
+     },
+
   }
 }
