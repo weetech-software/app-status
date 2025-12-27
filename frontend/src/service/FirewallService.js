@@ -331,5 +331,38 @@ const FirewallService = ({ children }) => {
          }
      },
 
+     // delete syn-recv/delete /api/firewall/syn-recv/delete
+     async syn_recv_delete(content) {
+         const response = await fetch(
+            `${process.env.REACT_APP_API_URL}/api/firewall/syn-recv/delete`,
+            {
+               method: "DELETE",
+               headers: {
+                  "x-access-token": localStorage.getItem("bearerToken"),
+                  "content-type": "application/json",
+               },
+               body: JSON.stringify(content),
+            }
+         );
+         if (response.ok) {
+            return new Promise((resolve) => {
+               resolve(true);
+            });
+         } else {
+            response.json().then((json) => {
+               if (json.message === "Token is expired") {
+                  const navigateState = {
+                     state: { message: "session expired" },
+                  };
+                  return new Promise((_, reject) => reject(navigateState));
+               }
+            });
+            const navigateState = {
+               state: { message: "unauth" },
+            };
+            return new Promise((_, reject) => reject(navigateState));
+         }
+     },
+
   }
 }
