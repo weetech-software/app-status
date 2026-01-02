@@ -363,6 +363,13 @@ const FirewallService = ({ children }) => {
             return new Promise((_, reject) => reject(navigateState));
          }
      },
-
   }
+
+  return (
+      <>
+         <FirewallServiceContext.Provider value={firewallService}>
+            {children}
+         </FirewallServiceContext.Provider>
+      </>
+  );
 }
