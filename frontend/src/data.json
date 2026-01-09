@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "API servers",
+    "nodes": [
+      {
+        "id": 1,
+        "name": "api.weetech.ch",
+        "duration": 24,
+        "rating": 5,
+        "numberOfReviews": 123,
+        "status": "operational",
+        "image": "https://www.weetech.ch/logo.png"
+      }
+    ]
+  }
+]
