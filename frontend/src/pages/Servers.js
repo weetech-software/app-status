@@ -24,3 +24,8 @@ const initialState = {
    ],
    servers: [],
 };
+
+export default function Servers() {
+
+
+}
