@@ -26,6 +26,15 @@ const initialState = {
 };
 
 export default function Servers() {
+   let params = useParams();
+
+   const location = useLocation();
+
+   const [state, setState] = React.useState(initialState);
+   const [allOrSingle, setAllOrSingle] = React.useState([]);
+
+   const navigate = useNavigate();
+   var userDispatch = useUserDispatch();
 
 
 }
