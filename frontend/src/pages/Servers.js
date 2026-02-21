@@ -36,5 +36,14 @@ export default function Servers() {
    const navigate = useNavigate();
    var userDispatch = useUserDispatch();
 
+   React.useEffect(() => {
+     fetch(`${process.env.REACT_APP_API_URL}/api/dashboard-internal/get-all-servers`,
+      {
+        headers: {"x-access-token": localStorage.getItem("bearerToken")},
+      }
+     )
+
+   }, [])
+
 
 }
