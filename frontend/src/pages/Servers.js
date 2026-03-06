@@ -81,8 +81,31 @@ export default function Servers() {
                });
             }
          })
-
-
+     .then((data) => data.json())
+         .then((data) => {
+            for (let i = 0; i < data.length; i++) {
+               let row = data[i];
+               const cname = row.name.replace(" ", "-");
+               if (cname === params.servers) {
+                  //console.log(cname);
+                  const monScripts = data[i].board.map((n) => {
+                     return {
+                        monscript: n.monscript,
+                        description: n.description || "default",
+                     };
+                  });
+                  const servers = data[i].nodes.map((n) => n.name);
+                  //console.log(monScripts);
+                  //console.log(servers);
+                  setState((prev) => ({
+                     ...prev,
+                     monScripts: monScripts,
+                     servers: servers,
+                  }));
+               }
+            }
+         });
+      // eslint-disable-next-line
    }, [])
 
 
