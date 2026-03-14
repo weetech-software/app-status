@@ -108,5 +108,20 @@ export default function Servers() {
       // eslint-disable-next-line
    }, [])
 
+   const renderPeriod = () => {
+      return (
+         <Select
+            value={state.period}
+            label="Period"
+            onChange={(event) =>
+               setState((prev) => ({ ...prev, period: event.target.value }))
+            }
+         >
+            <MenuItem value={"hourly"}>Hourly</MenuItem>
+            <MenuItem value={"daily"}>Daily</MenuItem>
+         </Select>
+      );
+   };
+
 
 }
