@@ -123,5 +123,28 @@ export default function Servers() {
       );
    };
 
+   const renderServers = () => {
+      return (
+         <Select
+            value={state.filter}
+            label="Filter server"
+            onChange={(event) =>
+               setState((prev) => ({ ...prev, filter: event.target.value }))
+            }
+         >
+            <MenuItem key={0} value={"all"}>
+               all
+            </MenuItem>
+            {state.servers.map((node, index) => {
+               const cIndex = index + 1;
+               return (
+                  <MenuItem key={cIndex} value={node}>
+                     {node}
+                  </MenuItem>
+               );
+            })}
+         </Select>
+      );
+   };
 
 }
