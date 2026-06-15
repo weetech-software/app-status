@@ -148,7 +148,11 @@ export default function Servers() {
    };
 
    return (
-
+      <Container maxWidth={false}>
+         <Box marginTop={3}>
+            <Breadcrumb path={location.pathname} />
+         </Box>
+      </Container>
    )
 
 }
