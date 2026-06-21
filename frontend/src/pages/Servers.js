@@ -152,6 +152,9 @@ export default function Servers() {
          <Box marginTop={3}>
             <Breadcrumb path={location.pathname} />
          </Box>
+         <Typography variant="h3" component="h1" marginTop={3}>
+            {params.servers} status
+         </Typography>
       </Container>
    )
 
