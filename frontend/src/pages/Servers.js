@@ -108,6 +108,16 @@ export default function Servers() {
       // eslint-disable-next-line
    }, [])
 
+   React.useEffect(() => {
+     if (state.filter) {
+       if (state.filter === "all") {
+          setAllOrSingle(state.servers);
+       } else {
+          setAllOrSingle([state.filter]);
+       }
+     }
+   }, [state]);
+
    const renderPeriod = () => {
       return (
          <Select
