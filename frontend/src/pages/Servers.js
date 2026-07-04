@@ -165,6 +165,10 @@ export default function Servers() {
          <Typography variant="h3" component="h1" marginTop={3}>
             {params.servers} status
          </Typography>
+         <Box marginTop={3} sx={{ display: "flex", justifyContent: "center" }}>
+            <Box width={{ xs: 250 }}>{renderPeriod()}</Box>
+            <Box width={{ xs: 250 }}>{renderServers()}</Box>
+         </Box>
       </Container>
    )
 
