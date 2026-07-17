@@ -169,6 +169,32 @@ export default function Servers() {
             <Box width={{ xs: 250 }}>{renderPeriod()}</Box>
             <Box width={{ xs: 250 }}>{renderServers()}</Box>
          </Box>
+         <Box
+            marginTop={3}
+            sx={{
+               display: "flex",
+               flexDirection: "row",
+               flexWrap: "wrap",
+               bgcolor: "background.paper",
+            }}
+         >
+            {state.monScripts.map((item, idx) => {
+               return (
+                  <div key={idx}>
+                     <Typography variant="subtitle2" component="div">
+                        {item.monscript}
+                     </Typography>
+                     <ChartLine
+                        serverHostname={allOrSingle.join(",")}
+                        selectedMonScript={item.monscript}
+                        selectedMonScriptDescription={item.description}
+                        period={state.period}
+                     />
+                  </div>
+               );
+            })}
+         </Box>
+
       </Container>
    )
 
