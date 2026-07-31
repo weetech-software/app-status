@@ -194,8 +194,15 @@ export default function Servers() {
                );
             })}
          </Box>
-
+         <Box marginBottom={10}></Box>
+         <Paper
+            sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+            elevation={3}
+         >
+            <BottomNavigation>
+               <BasicModal />
+            </BottomNavigation>
+         </Paper>
       </Container>
-   )
-
+   );
 }
