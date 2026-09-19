@@ -18,3 +18,6 @@ import { Link } from "react-router-dom";
 
 import { routes } from "../core/config";
 
+export default function Dashboard() {
+
+}
