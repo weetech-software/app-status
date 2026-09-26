@@ -20,4 +20,11 @@ import { routes } from "../core/config";
 
 export default function Dashboard() {
 
+  const [servers, setServers] = React.useState([]);
+  const [loadingServerList, setLoadingServerList] = React.useState(false);
+  const location = useLocation();
+
+  const navigate = useNavigate();
+  var userDispatch = useUserDisptach();
+
 }
