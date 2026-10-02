@@ -27,4 +27,8 @@ export default function Dashboard() {
   const navigate = useNavigate();
   var userDispatch = useUserDisptach();
 
+  React.useEffect(() => {
+
+  }, []);
+
 }
