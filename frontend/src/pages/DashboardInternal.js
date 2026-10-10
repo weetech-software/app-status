@@ -28,6 +28,17 @@ export default function Dashboard() {
   var userDispatch = useUserDisptach();
 
   React.useEffect(() => {
+      setLoadingServerList(true);
+      fetch(
+         `${process.env.REACT_APP_API_URL}/api/dashboard-internal/get-all-servers`,
+         {
+            headers: { "x-access-token": localStorage.getItem("bearerToken") },
+         }
+      )
+         .then((data) => data.json())
+         .then((data) => setServers(data))
+         .finally(() => setLoadingServerList(false));
+      // eslint-disable-next-line
 
   }, []);
 
