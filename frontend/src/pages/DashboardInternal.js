@@ -28,18 +28,56 @@ export default function Dashboard() {
   var userDispatch = useUserDisptach();
 
   React.useEffect(() => {
-      setLoadingServerList(true);
-      fetch(
-         `${process.env.REACT_APP_API_URL}/api/dashboard-internal/get-all-servers`,
-         {
-            headers: { "x-access-token": localStorage.getItem("bearerToken") },
-         }
-      )
-         .then((data) => data.json())
-         .then((data) => setServers(data))
-         .finally(() => setLoadingServerList(false));
-      // eslint-disable-next-line
-
+     setLoadingServerList(true);
+     fetch(
+        `${process.env.REACT_APP_API_URL}/api/dashboard-internal/get-all-servers`,
+        {
+           headers: { "x-access-token": localStorage.getItem("bearerToken") },
+        }
+     )
+     .then(function (response) {
+        if (response.ok) {
+           return response;
+        } else {
+           response.json().then((json) => {
+              if (json.message === "Token is expired") {
+                 const navigateState = {
+                    state: { message: "session expired" },
+                 };
+                 signOut(
+                    userDispatch,
+                    navigate,
+                    routes.login.key,
+                    navigateState
+                 );
+              } else if (json.message === "not authorize to access") {
+                 const navigateState = {
+                    state: { message: "not authorize to access" },
+                 };
+                 signOut(
+                    userDispatch,
+                    navigate,
+                    routes.login.key,
+                    navigateState
+                 );
+              } else {
+                 const navigateState = {
+                    state: { message: "unauth" },
+                 };
+                 signOut(
+                    userDispatch,
+                    navigate,
+                    routes.login.key,
+                    navigateState
+                 );
+              }
+           });
+        }
+     })
+     .then((data) => data.json())
+     .then((data) => setServers(data))
+     .finally(() => setLoadingServerList(false));
+     // eslint-disable-next-line
   }, []);
 
 }
