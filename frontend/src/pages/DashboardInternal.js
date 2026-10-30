@@ -81,6 +81,11 @@ export default function Dashboard() {
   }, []);
 
   const renderLink = (server) => {
+    const link = `${routes.dashboard_internal.key}/${server.name.replace(
+      " ",
+      "-"
+    )}`;
+
   };
 
 
